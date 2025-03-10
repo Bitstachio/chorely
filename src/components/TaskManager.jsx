@@ -1,9 +1,9 @@
+import React, {useState} from "react";
 import TaskList from "./TaskList.jsx";
 import TaskForm from "./TaskForm.jsx";
-import {useState} from "react";
 
-function TaskManager() {
-    const [tasks, setTasks] = useState([]);
+function TaskManager({initialTasks = []}) {
+    const [tasks, setTasks] = useState(initialTasks);
 
     const onAddTask = (description) => {
         const newTask = {

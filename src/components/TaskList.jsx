@@ -25,22 +25,22 @@ function TaskList({tasks = [], onEditTask, onDeleteTask}) {
     };
 
     return (
-        <ul>
+        <ul data-testid="task-list">
             {tasks.map((task, index) =>
                 <li key={index} className={styles.task}>
                     {editIndex === index ? (
                         <>
-                            <input type="text" value={newDescription} onChange={handleNewDescriptionChange}/>
-                            <button onClick={() => actionSave(index, newDescription)}>Save</button>
-                            <button onClick={actionCancel}>Cancel</button>
+                            <input data-testid={`input-description-${index}`} type="text" value={newDescription} onChange={handleNewDescriptionChange}/>
+                            <button data-testid={`button-save-${index}`} onClick={() => actionSave(index, newDescription)}>Save</button>
+                            <button data-testid={`button-cancel-${index}`} onClick={actionCancel}>Cancel</button>
                         </>
                     ) : (
                         <>
-                            {task.description}
-                            <button onClick={() => actionEdit(index, task.description)}>Edit</button>
+                            <p data-testid={`p-description-${index}`}>{task.description}</p>
+                            <button data-testid={`button-edit-${index}`} onClick={() => actionEdit(index, task.description)}>Edit</button>
                         </>
                     )}
-                    <button onClick={() => actionDelete(index)}>Delete</button>
+                    <button data-testid={`button-delete-${index}`} onClick={() => actionDelete(index)}>Delete</button>
                 </li>
             )}
         </ul>

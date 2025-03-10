@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 
 function TaskForm({onAddTask}) {
     const [task, setTask] = useState("");
@@ -13,9 +13,9 @@ function TaskForm({onAddTask}) {
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="task">Task</label><br/>
-            <input type="text" name="task" id="task" placeholder="Enter task" value={task}
+            <input data-testid="input-new-description" type="text" name="task" id="task" placeholder="Enter task" value={task}
                    onChange={(e) => setTask(e.target.value)}/>
-            <button>Add</button>
+            <button data-testid="button-new-task">Add</button>
         </form>
     );
 }
