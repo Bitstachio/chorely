@@ -1,7 +1,7 @@
+import React, {useState} from "react";
 import styles from "./TaskList.module.css";
-import {useState} from "react";
 
-function TaskList({tasks, onEditTask, onDeleteTask}) {
+function TaskList({tasks = [], onEditTask, onDeleteTask}) {
     const [editIndex, setEditIndex] = useState(-1);
     const [newDescription, setNewDescription] = useState("");
 
