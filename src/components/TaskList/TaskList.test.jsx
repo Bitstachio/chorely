@@ -1,6 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react"
-import TaskList from "./TaskList"
+import TaskList from "./TaskList.jsx"
 import {describe, expect, it, beforeEach} from "vitest";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/vitest"

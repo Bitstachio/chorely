@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import TaskList from "./TaskList.jsx";
-import TaskForm from "./TaskForm.jsx";
+import TaskList from "../TaskList/TaskList.jsx";
+import TaskForm from "../TaskForm/TaskForm.jsx";
 
 function TaskManager({initialTasks = []}) {
     const [tasks, setTasks] = useState(initialTasks);

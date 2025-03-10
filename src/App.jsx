@@ -1,4 +1,4 @@
-import TaskManager from "./components/TaskManager.jsx";
+import TaskManager from "./components/TaskManager/TaskManager.jsx";
 
 function App() {
     return (
