@@ -31,7 +31,6 @@ describe("TaskList", () => {
     it("does not create a new task if input field is empty", async () => {
         render(<TaskManager initialTasks={tasks}/>);
 
-        await userEvent.click(screen.getByTestId("button-new-task"));
         await userEvent.type(screen.getByTestId("input-new-description"), " ");
         await userEvent.click(screen.getByTestId("button-new-task"));
 
@@ -51,6 +50,21 @@ describe("TaskList", () => {
         await userEvent.click(screen.getByTestId(`button-save-${index}`));
 
         expect(screen.getByTestId(`p-description-${index}`)).toHaveTextContent(newDescription);
+    });
+
+    it("does not update task description if input field is empty", async () => {
+        render(<TaskManager initialTasks={tasks}/>);
+
+        const index = 0;
+        const initialDescription = screen.getByTestId(`p-description-${index}`).textContent;
+
+        await userEvent.click(screen.getByTestId(`button-edit-${index}`));
+        const input = screen.getByTestId(`input-description-${index}`);
+        await userEvent.clear(input);
+        await userEvent.type(input, " ");
+        await userEvent.click(screen.getByTestId(`button-save-${index}`));
+
+        expect(screen.getByTestId(`p-description-${index}`)).toHaveTextContent(initialDescription);
     });
 
     it("cancels task description update", async () => {
@@ -79,5 +93,24 @@ describe("TaskList", () => {
 
         expect(screen.queryAllByRole("listitem")).toHaveLength(tasks.length - 1);
         expect(screen.queryByText(description)).not.toBeInTheDocument();
+    });
+
+    it("deletes task when in edit mode", async () => {
+        render(<TaskManager initialTasks={tasks}/>);
+
+        const index = 0;
+        const initialDescription = screen.getByTestId(`p-description-${index}`).textContent;
+        const newDescription = "Task #99";
+
+
+        await userEvent.click(screen.getByTestId(`button-edit-${index}`));
+        const input = screen.getByTestId(`input-description-${index}`);
+        await userEvent.clear(input);
+        await userEvent.type(input, newDescription);
+        await userEvent.click(screen.getByTestId(`button-delete-${index}`));
+
+        expect(screen.queryAllByRole("listitem")).toHaveLength(tasks.length - 1);
+        expect(screen.queryByText(initialDescription)).not.toBeInTheDocument();
+        expect(screen.queryByText(newDescription)).not.toBeInTheDocument();
     });
 });
